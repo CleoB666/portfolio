@@ -103,3 +103,24 @@ window.addEventListener("scroll", () => {
             window.scrollY > 50
         );
 });
+
+const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+const navLinks = document.querySelector(".nav-links");
+
+if (mobileMenuBtn && navLinks) {
+    mobileMenuBtn.addEventListener("click", () => {
+        mobileMenuBtn.classList.toggle("active");
+        navLinks.classList.toggle("open");
+
+        const isOpen = navLinks.classList.contains("open");
+        mobileMenuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+            mobileMenuBtn.classList.remove("active");
+            navLinks.classList.remove("open");
+            mobileMenuBtn.setAttribute("aria-expanded", "false");
+        });
+    });
+}

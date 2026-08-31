@@ -515,10 +515,10 @@ height:420px;
 }
 
 .se-theme {
-    --case-color:#FACC15;
-    --case-color-light:rgba(250,204,21,.15);
-    --case-color-border:rgba(250,204,21,.25);
-    --case-color-glow: rgba(250,204,21,.25);
+    --case-color:#B7EBF6;
+    --case-color-light:rgba(183, 235, 246, .15);
+    --case-color-border:rgba(183, 235, 246, .25);
+    --case-color-glow: rgba(183, 235, 246, .25);
 }
 
 .se-theme .project-hero::before {
@@ -526,7 +526,7 @@ height:420px;
     position:absolute;
     width:500px;
     height:500px;
-    background: radial-gradient(circle, rgba(250,204,21,.32), transparent 70%);
+    background: radial-gradient(circle, rgba(183, 235, 246, .32), transparent 70%);
     filter: blur(100px);
     top: -150px;
     left: -100px;

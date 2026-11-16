@@ -633,3 +633,514 @@ height:420px;
         border-radius: 20px;
     }
 }
+
+
+/* Diana's original per-project accent variables are intentionally retained.
+   On case-study pages: soft colour feedback without lifting non-links. */
+.project-hero { background: #191831; }
+.project-hero::before, .project-hero::after { display:none !important; content:none !important; }
+.project-process-wrapper { background: #111A2E; }
+.reflection-card::before { display: none !important; content: none !important; }
+.overview-item, .process-card, .learning-card, .case-card, .reflection-card {
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.overview-item:hover, .process-card:hover, .learning-card:hover {
+  transform: none !important;
+  border-color: var(--case-color) !important;
+  box-shadow: 0 0 18px var(--case-color-glow) !important;
+}
+.process-grid img:hover, .case-block img:hover { transform: none !important; }
+.project-hero .subtitle, .section-intro { max-width: 780px; }
+.project-hero h1 { max-width: 980px; margin-left: auto; margin-right: auto; }
+/* No pointer cursor for informational elements. */
+.overview-item, .process-card, .learning-card, .case-card { cursor: default; }
+@media (prefers-reduced-motion: reduce) {
+ *, *::before, *::after { animation:none !important; transition-duration:0s !important; scroll-behavior:auto !important; }
+}
+
+/* V6: Project identities, on top of Diana's original visual language.
+   Only case-study pages use these rules. No homepage/photo changes.
+   Logos are the user's existing images, not generated or altered. */
+
+/* The permanent frame is shared. Identity belongs to each project. */
+body:is(.vilike-theme,.sellpy-theme,.duro-theme,.academedia-theme,.se-theme) {
+    --case-text: #C4A8FF;
+    --case-panel: rgba(23, 27, 47, .72);
+    --case-media: rgba(16, 23, 39, .65);
+    --case-radius: 20px;
+    --case-detail-radius: 14px;
+    --hero-base: #17172b;
+}
+
+.project-hero {
+    isolation: isolate;
+    padding: 4.75rem 1.4rem 4.2rem;
+    background: var(--hero-base, #191831);
+}
+.project-hero .project-atmosphere {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(ellipse at 50% 0%,var(--case-color-light),transparent 65%);
+}
+.project-hero .project-brand {
+    width: 124px;
+    height: 78px;
+    margin: 0 auto 1.55rem;
+    padding: 9px 11px;
+    display: grid;
+    place-items: center;
+    background: #f8fafc;
+    border: 1px solid var(--case-color-border);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .16);
+}
+.project-hero .project-brand img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+.project-hero h1 {
+    font-size: clamp(2rem, 4.2vw, 3.5rem);
+    line-height: 1.13;
+    letter-spacing: -.025em;
+    text-wrap: balance;
+    max-width: 950px;
+}
+.project-hero .subtitle {
+    line-height: 1.7;
+    max-width: 690px;
+    text-wrap: pretty;
+}
+.project-hero .hero-tags {
+    gap: .65rem;
+}
+.project-hero .hero-tags span {
+    padding: .55rem .95rem;
+    font-size: .87rem;
+    border: 1px solid var(--case-color-border);
+}
+.project-overview {
+    margin-top: 4rem;
+}
+.project-overview .overview-item {
+    background: var(--case-panel);
+    border-color: var(--case-color-border);
+    border-radius: var(--case-detail-radius);
+}
+.project-overview .overview-item span,
+.project-process .section-label,
+.project-reflection .section-label,
+.case-label {
+    color: var(--case-text);
+}
+.project-content .case-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--case-panel);
+    border: 1px solid var(--case-color-border);
+    border-radius: var(--case-radius);
+}
+.project-content .case-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 2rem;
+    width: 3px;
+    height: 3.5rem;
+    border-radius: 0 8px 8px 0;
+    background: var(--case-color);
+    opacity: .8;
+}
+.project-content .case-block img,
+.project-process .process-grid img,
+.project-process .process-card video {
+    border-color: var(--case-color-border);
+    background: var(--case-media);
+    border-radius: var(--case-detail-radius);
+}
+.project-content .case-label {
+    background: var(--case-color-light);
+    border-color: var(--case-color-border);
+    border-radius: 7px;
+}
+.project-process-wrapper {
+    background: linear-gradient(180deg, var(--case-color-light) 0%, #111a2e 20%, #111a2e 100%);
+    border-top: 1px solid var(--case-color-border);
+    border-bottom: 1px solid var(--case-color-border);
+}
+.project-process .section-heading::before {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: var(--case-color);
+    border-radius: 2px;
+    margin: 0 auto 1.25rem;
+}
+.project-process .process-card,
+.project-learnings .learning-card,
+.project-reflection .reflection-card {
+    background: var(--case-panel);
+    border-color: var(--case-color-border);
+    border-radius: var(--case-radius);
+}
+.project-process .process-card,
+.project-learnings .learning-card {
+    transition: border-color .18s ease, box-shadow .18s ease;
+}
+/* Keep the project-coloured glow Diana likes, without lift or pointer cues. */
+.project-overview .overview-item:hover,
+.project-process .process-card:hover,
+.project-learnings .learning-card:hover {
+    transform: none !important;
+    border-color: var(--case-color) !important;
+    box-shadow: 0 0 17px var(--case-color-glow) !important;
+}
+
+/* ViLike: inviting, soft and playful without animated decoration. */
+.vilike-theme {
+    --case-text: #CAAFFF;
+    --case-panel: rgba(37, 27, 58, .64);
+    --case-media: rgba(33, 25, 55, .62);
+    --case-radius: 26px;
+    --case-detail-radius: 19px;
+    --hero-base: #1c1731;
+}
+.vilike-theme .project-hero .project-atmosphere {
+    background:
+        radial-gradient(circle at 17% 39%, rgba(168,85,247,.17) 0 8%, transparent 30%),
+        radial-gradient(circle at 83% 22%, rgba(222,109,171,.11) 0 6%, transparent 28%),
+        radial-gradient(ellipse at 50% 105%, rgba(124,58,237,.09), transparent 55%);
+}
+.vilike-theme .project-brand { border-radius: 24px; }
+.vilike-theme .case-label, .vilike-theme .hero-tags span { border-radius: 999px; }
+.vilike-theme .project-process .section-heading::before { border-radius: 999px; }
+
+/* Sellpy: clear, modern e-commerce / editorial order. */
+.sellpy-theme {
+    --case-text: #A5CCFF;
+    --case-panel: rgba(19, 35, 55, .72);
+    --case-media: rgba(15, 32, 50, .65);
+    --case-radius: 12px;
+    --case-detail-radius: 9px;
+    --hero-base: #142437;
+}
+.sellpy-theme .project-hero .project-atmosphere {
+    background:
+        linear-gradient(120deg, transparent 23%, rgba(59,130,246,.065) 23% 23.15%, transparent 23.15% 75%, rgba(59,130,246,.055) 75% 75.15%, transparent 75.15%),
+        radial-gradient(ellipse at 50% 0%, rgba(59,130,246,.18), transparent 70%);
+}
+.sellpy-theme .project-brand { width: 86px; height: 86px; border-radius: 50%; padding: 5px; }
+.sellpy-theme .project-content .case-label { border-radius: 4px; }
+.sellpy-theme .project-process .section-heading::before { width: 72px; height: 2px; border-radius: 0; }
+
+/* Duro: warm, restrained, material-led typography and fine rules. */
+.duro-theme {
+    --case-text: #F0D49A;
+    --case-panel: rgba(37, 34, 28, .68);
+    --case-media: rgba(36, 32, 26, .56);
+    --case-radius: 11px;
+    --case-detail-radius: 7px;
+    --hero-base: #25221d;
+}
+.duro-theme .project-hero .project-atmosphere {
+    background:
+        repeating-linear-gradient(90deg, transparent 0 77px, rgba(200,155,60,.055) 77px 78px),
+        radial-gradient(ellipse at 47% 0%, rgba(200,155,60,.16), transparent 70%);
+}
+.duro-theme .project-brand { width: 134px; height: 80px; border-radius: 6px; background: #f8f6f1; }
+.duro-theme .project-hero h1,
+.duro-theme .project-process .section-heading h2,
+.duro-theme .project-reflection h2 { font-family: Georgia, 'Times New Roman', serif; font-weight: 600; letter-spacing: -.017em; }
+.duro-theme .project-content .case-label { border-radius: 3px; }
+.duro-theme .project-process .section-heading::before { height: 2px; width: 64px; border-radius: 0; }
+
+/* AcadeMedia: structured and quietly systematic, like a considered UX audit. */
+.academedia-theme {
+    --case-text: #7EE6AC;
+    --case-panel: rgba(18, 38, 38, .68);
+    --case-media: rgba(17, 35, 35, .68);
+    --case-radius: 15px;
+    --case-detail-radius: 10px;
+    --hero-base: #142d2c;
+}
+.academedia-theme .project-hero .project-atmosphere {
+    background:
+        linear-gradient(90deg, rgba(34,197,94,.06) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(34,197,94,.04) 1px, transparent 1px),
+        radial-gradient(ellipse at 50% 0%, rgba(34,197,94,.09), transparent 65%);
+    background-size: 66px 66px, 66px 66px, auto;
+}
+.academedia-theme .project-brand { width: 136px; height: 76px; background: #e9faf3; border-radius: 10px; }
+.academedia-theme .project-content .case-label { border-radius: 5px; }
+.academedia-theme .project-process .section-heading::before { width: 44px; height: 4px; border-radius: 0; }
+
+/* Sirius: the studio's deeper space-blue and luminous, but static, identity. */
+.se-theme {
+    --case-text: #B7EBF6;
+    --case-panel: rgba(16, 31, 50, .73);
+    --case-media: rgba(13, 28, 48, .76);
+    --case-radius: 22px;
+    --case-detail-radius: 15px;
+    --hero-base: #0d1d31;
+}
+.se-theme .project-hero .project-atmosphere {
+    background:
+        radial-gradient(circle at 20% 30%, rgba(183,235,246,.11), transparent 28%),
+        radial-gradient(circle at 80% 69%, rgba(54,120,187,.10), transparent 29%),
+        radial-gradient(circle at 50% 7%, rgba(183,235,246,.045), transparent 45%);
+}
+.se-theme .project-brand { width: 88px; height: 88px; border-radius: 16px; background: #061126; padding: 5px; }
+.se-theme .project-content .case-label { border-radius: 7px; }
+.se-theme .project-process .section-heading::before { width: 42px; height: 3px; }
+
+@media (max-width: 768px) {
+    .project-hero { padding: 4rem 1.1rem 3.6rem; }
+    .project-hero .project-brand { margin-bottom: 1.35rem; }
+    .project-overview { margin-top: 2rem; }
+    .project-content .case-card { padding: 1.2rem; }
+    .project-content .case-card::before { top: 1.4rem; height: 2.25rem; width: 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .project-process .process-card, .project-learnings .learning-card { transition: none; }
+}
+
+
+/* V7: quiet, research-led refinements to the user's V6 project identities.
+   No homepage layout change, no new content images, no motion. */
+
+/* ViLike: the existing lilac colour and playful rounded forms remain central.
+   A little more focus on its visual rhythm, not extra decorative icons. */
+.vilike-theme .project-hero .hero-tags span:first-child {
+    background: rgba(168, 85, 247, .14);
+    border-color: rgba(202, 171, 255, .38);
+}
+.vilike-theme .project-content .case-card::before {
+    width: 4px;
+    border-radius: 999px;
+}
+
+/* Sellpy: a quieter commerce/editorial rhythm, aligned with the easy-to-scan
+   categorisation on its public online second-hand shop. */
+.sellpy-theme .case-content > h3 {
+    padding-bottom: .72rem;
+    border-bottom: 1px solid rgba(137, 180, 231, .21);
+}
+.sellpy-theme .project-hero .hero-tags span:first-child {
+    background: rgba(78, 142, 210, .11);
+}
+
+/* Duro: Swedish wallpaper craft, printing and quiet material texture.
+   CSS only, very faint so the existing case-study images stay the focus. */
+.duro-theme .project-process-wrapper {
+    background-image: repeating-linear-gradient(90deg,
+        rgba(204, 165, 106, .026) 0 1px, transparent 1px 14px);
+}
+.duro-theme .project-hero .hero-tags span:first-child {
+    border-color: rgba(236, 201, 143, .36);
+}
+
+/* AcadeMedia: gentle mint/petroleum accents informed by its public identity.
+   Do not replace or alter the organisation's existing logo asset. */
+.academedia-theme {
+    --case-text: #a5eed6;
+}
+.academedia-theme .project-hero .hero-tags span:first-child {
+    border-color: rgba(165, 238, 214, .35);
+    background: rgba(75, 157, 140, .12);
+}
+.academedia-theme .project-process .process-card {
+    box-shadow: inset 0 2px 0 rgba(165, 238, 214, .065);
+}
+
+/* Sirius Entertainment: the site's own 'One Studio Many Worlds' identity,
+   deep space-blue, a restrained orbit and a tiny warm counter-accent.
+   These elements are static and purely editorial, never fake controls. */
+.se-theme {
+    --case-text: #bee8f3;
+    --hero-base: #0a1729;
+}
+.se-theme .project-hero .project-atmosphere {
+    background:
+       radial-gradient(circle at 84% 26%, rgba(45, 130, 183, .12), transparent 39%),
+       radial-gradient(circle at 17% 83%, rgba(231, 156, 83, .055), transparent 35%),
+       linear-gradient(180deg, #091627 0%, #0f2235 100%);
+}
+.se-theme .project-hero .project-atmosphere::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: clamp(270px, 45vw, 640px);
+    aspect-ratio: 1;
+    right: -11%;
+    top: -36%;
+    border: 1px solid rgba(167, 219, 242, .12);
+    border-radius: 50%;
+    box-shadow: 0 0 0 63px rgba(167, 219, 242, .017),
+                0 0 0 142px rgba(167, 219, 242, .009);
+    pointer-events: none;
+}
+.se-theme .se-studio-signature {
+    width: fit-content;
+    margin: -.45rem auto 1.3rem;
+    color: #c7e5ef;
+    font-size: .7rem;
+    font-weight: 700;
+    line-height: 1.6;
+    letter-spacing: .17em;
+}
+.se-theme .se-studio-signature span { color: #e8b180; padding-inline: .3em; }
+.se-theme .project-brand {
+    border-color: rgba(154, 221, 239, .27);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .24);
+}
+.se-theme .project-hero .hero-tags span:first-child {
+    color: #f0c69a;
+    border-color: rgba(232, 177, 128, .28);
+    background: rgba(232, 177, 128, .065);
+}
+.se-theme .project-process .section-heading::before {
+    background: linear-gradient(90deg, #e8b180 0 22%, #7bc9e8 22% 100%);
+    width: 50px;
+}
+@media (max-width: 680px) {
+   .se-theme .project-hero .project-atmosphere::after {
+        right: -30%;
+        top: -12%;
+        opacity: .6;
+   }
+   .se-theme .se-studio-signature {
+        font-size: .65rem;
+        letter-spacing: .12em;
+   }
+}
+@media (prefers-reduced-motion: reduce) {
+  .se-theme .project-hero .project-atmosphere,
+  .se-theme .project-hero .project-atmosphere::after { animation: none !important; }
+}
+
+
+/* V8: full-page cohesion refinements.
+   Keep Diana's portfolio structure. Let each project colour guide the page,
+   including the lower sections, while staying subtle and readable. */
+
+/* Project pages: carry accent into shared lower-page elements without changing layout. */
+body:is(.vilike-theme,.sellpy-theme,.duro-theme,.academedia-theme,.se-theme) .footer-links a:hover,
+body:is(.vilike-theme,.sellpy-theme,.duro-theme,.academedia-theme,.se-theme) .footer-brand h2,
+body:is(.vilike-theme,.sellpy-theme,.duro-theme,.academedia-theme,.se-theme) .footer .social-link svg {
+    color: var(--case-color);
+}
+body:is(.vilike-theme,.sellpy-theme,.duro-theme,.academedia-theme,.se-theme) .footer .social-link {
+    border-color: var(--case-color-border);
+    background: rgba(255,255,255,.025);
+}
+body:is(.vilike-theme,.sellpy-theme,.duro-theme,.academedia-theme,.se-theme) .footer .social-link:hover {
+    border-color: var(--case-color);
+    box-shadow: 0 0 18px var(--case-color-glow);
+}
+body:is(.vilike-theme,.sellpy-theme,.duro-theme,.academedia-theme,.se-theme) .footer-bottom {
+    border-top-color: var(--case-color-border);
+}
+
+/* Keep each case study feeling a touch more whole from content to reflection. */
+body:is(.vilike-theme,.sellpy-theme,.duro-theme,.academedia-theme,.se-theme) .reflection-card {
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+}
+body:is(.vilike-theme,.sellpy-theme,.duro-theme,.academedia-theme,.se-theme) .project-content .case-card {
+    box-shadow: 0 14px 40px rgba(0,0,0,.18);
+}
+
+/* Sirius Entertainment: carry the studio identity all the way down the page. */
+.se-theme .creative-content {
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(180deg, rgba(10,23,41,.96) 0%, rgba(13,29,49,.96) 100%);
+    border-color: rgba(123,201,232,.18);
+    box-shadow: 0 16px 44px rgba(0,0,0,.24);
+}
+.se-theme .creative-content::before {
+    content: '';
+    position: absolute;
+    inset: auto auto -120px -120px;
+    width: 320px;
+    aspect-ratio: 1;
+    border: 1px solid rgba(123,201,232,.12);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 54px rgba(123,201,232,.035),
+        0 0 0 116px rgba(123,201,232,.02);
+    pointer-events: none;
+}
+.se-theme .creative-content::after {
+    content: '';
+    position: absolute;
+    right: 10%;
+    top: 18%;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(232,177,128,.95);
+    box-shadow:
+        -42px 65px 0 -1px rgba(123,201,232,.9),
+        36px 118px 0 -2px rgba(232,177,128,.68),
+        72px -14px 0 -3px rgba(123,201,232,.6);
+    pointer-events: none;
+}
+.se-theme .creative-content h2 {
+    color: #F8FAFC;
+}
+.se-theme .creative-text {
+    color: #d5e7ef;
+}
+.se-theme .creative-links .social-link {
+    border-color: rgba(123,201,232,.18);
+    background: rgba(255,255,255,.035);
+}
+.se-theme .creative-links .social-link:hover {
+    border-color: #7bc9e8;
+    box-shadow: 0 0 18px rgba(123,201,232,.18);
+}
+.se-theme .creative-links .social-link span {
+    color: #e4eef3;
+}
+.se-theme .creative-label {
+    background: rgba(232,177,128,.08);
+    border-color: rgba(232,177,128,.24);
+    color: #f0c69a;
+}
+.se-theme .footer-brand h2,
+.se-theme .footer-links a:hover,
+.se-theme .footer .social-link svg {
+    color: #7bc9e8;
+}
+.se-theme .footer .social-link:hover {
+    box-shadow: 0 0 18px rgba(123,201,232,.18);
+}
+
+/* Small project-specific lower-page touches for coherence, not redesign. */
+.sellpy-theme .footer-brand h2,
+.sellpy-theme .footer-links a:hover,
+.sellpy-theme .footer .social-link svg { color: #89b4e7; }
+.duro-theme .footer-brand h2,
+.duro-theme .footer-links a:hover,
+.duro-theme .footer .social-link svg { color: #e5c27d; }
+.academedia-theme .footer-brand h2,
+.academedia-theme .footer-links a:hover,
+.academedia-theme .footer .social-link svg { color: #a5eed6; }
+.vilike-theme .footer-brand h2,
+.vilike-theme .footer-links a:hover,
+.vilike-theme .footer .social-link svg { color: #caabff; }
+
+@media (max-width: 760px) {
+  .se-theme .creative-content::before {
+      left: -165px;
+      bottom: -150px;
+      opacity: .72;
+  }
+  .se-theme .creative-content::after { right: 12%; top: 12%; }
+}

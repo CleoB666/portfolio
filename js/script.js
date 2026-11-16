@@ -1,126 +1,60 @@
-// hämtar alla element som har klassen "fade-in"
-const fadeElements = document.querySelectorAll(".fade-in");
-// kollar att det finns element
-if (fadeElements.length > 0) {
-    // kör callbacken varje gång ett observerat element ändrar synlighet
-    const observer = new IntersectionObserver (
-        (entries) => {
-            // entries = lista med element som observeras
-            entries.forEach(entry => {
-                // isIntersecting = true när elementet är synligt i viewport
-                if (entry.isIntersecting) {
-                    // lägger till klass, används i css för att trigga animation
-                    entry.target.classList.add("show");
-                }
-            });
-        },
-        // nställningar för observern
-        {
-            threshold: 0.2
-        }
-    );
-    // observerar varje fade-element
-    fadeElements.forEach(el => observer.observe(el));
-}
-// hämtar element med id "date"
-const dateElement = document.getElementById("date");
-// säkerhetscheck
+// Small interactions only. Motion is reserved for the user's chosen typewriter and actual links.
+const dateElement = document.getElementById('date');
 if (dateElement) {
-    //skapar nytt datum
-    const today = new Date();
-   // formaterar datum enligt svensk standard
-    const formattedDate = today.toLocaleDateString("sv", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        weekday: "long"
-    });
-    // sätter texten i html
-    dateElement.textContent = formattedDate;
+  dateElement.textContent = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date());
 }
-// hämtar alla länkar som börjar med "#", interna länkar (anchor links)
-const anchorLinks = document.querySelectorAll('a[href^="#"]');
-
-anchorLinks.forEach(link => {
-    // lyssnar på click
-    link.addEventListener("click", function (e) {
-        // hämtar interna länkar, t.ex. "#about"
-        const targetId = this.getAttribute("href");
-        // hittar element med samma id
-        const targetElement = document.querySelector(targetId);
-      // om element finns
-        if (targetElement) {
-            // stoppar standard-beteende
-            e.preventDefault();
-         // scrollar "smooth" till elementet
-            targetElement.scrollIntoView( {
-                behavior: "smooth",
-                block: "start"
-            });
-        }
-    });
-});
-
-   document.addEventListener("DOMContentLoaded", () => {
-    const el = document.querySelector(".typing");
-
-    if (!el) {
-        return;
-    }
-
-    const text = `I am a UX/UI Designer with a background in Frontend Development and a strong interest in creating accessible and user-centered digital experiences.
-
-Through academic and collaborative projects I have worked with user research, wireframing, prototyping, usability testing and interface design.
-
-I enjoy transforming complex problems into intuitive solutions and designing products that create real value for users.
-
-Currently I am seeking internship and junior opportunities where I can continue developing my skills while contributing to meaningful digital products.`;
-
-    el.textContent = "";
-
-    let i = 0;
-
-    function type() {
-        if (i < text.length) {
-            el.textContent += text[i];
-            i++;
-            setTimeout(type, 20);
-        }
-    }
-
-    type();
-});
-
-if (window.lucide) {
-    lucide.createIcons();
-}
-
-window.addEventListener("scroll", () => {
-    document
-        .querySelector(".navbar")
-        .classList.toggle(
-            "scrolled",
-            window.scrollY > 50
-        );
-});
-
-const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
-const navLinks = document.querySelector(".nav-links");
-
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const navLinks = document.querySelector('.nav-links');
 if (mobileMenuBtn && navLinks) {
-    mobileMenuBtn.addEventListener("click", () => {
-        mobileMenuBtn.classList.toggle("active");
-        navLinks.classList.toggle("open");
-
-        const isOpen = navLinks.classList.contains("open");
-        mobileMenuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
-    });
-
-    navLinks.querySelectorAll("a").forEach(link => {
-        link.addEventListener("click", () => {
-            mobileMenuBtn.classList.remove("active");
-            navLinks.classList.remove("open");
-            mobileMenuBtn.setAttribute("aria-expanded", "false");
-        });
-    });
+  const setMenuOpen = (open) => {
+    navLinks.classList.toggle('open', open);
+    mobileMenuBtn.classList.toggle('active', open);
+    mobileMenuBtn.setAttribute('aria-expanded', String(open));
+  };
+  mobileMenuBtn.addEventListener('click', () => setMenuOpen(!navLinks.classList.contains('open')));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenuOpen(false)));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && navLinks.classList.contains('open')) { setMenuOpen(false); mobileMenuBtn.focus(); }
+  });
+  document.addEventListener('click', e => {
+    if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) setMenuOpen(false);
+  });
+}
+const navbar = document.querySelector('.navbar');
+if (navbar) {
+  const update = () => navbar.classList.toggle('scrolled', window.scrollY > 50);
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+const typing = document.querySelector('.typing');
+if (typing && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const fullText = typing.textContent.trim();
+  // Keep a full, readable alternative for assistive technology.
+  const accessibleText = document.createElement('span');
+  accessibleText.className = 'sr-only-typing';
+  accessibleText.textContent = fullText;
+  const visualText = document.createElement('span');
+  visualText.setAttribute('aria-hidden', 'true');
+  typing.replaceChildren(visualText, accessibleText);
+  let started = false;
+  const startTyping = () => {
+    if (started) return;
+    started = true;
+    typing.setAttribute('data-typing-active','');
+    let idx = 0;
+    const letters = Array.from(fullText);
+    const step = () => {
+      idx = Math.min(idx + 2, letters.length);
+      visualText.textContent = letters.slice(0,idx).join('');
+      if (idx < letters.length) window.setTimeout(step, 22);
+      else typing.removeAttribute('data-typing-active');
+    };
+    step();
+  };
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some(e => e.isIntersecting)) { startTyping(); observer.disconnect(); }
+    }, { threshold: 0.05 });
+    observer.observe(typing);
+  } else startTyping();
 }
